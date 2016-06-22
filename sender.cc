@@ -8,13 +8,12 @@ using namespace boost::interprocess;
 
 int main ()
 {
+  char hello[] = {'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '\0'};
    try {
       message_queue::remove("message_queue");
       message_queue::remove("receive_queue");
 
-      char hello[] = { 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '\0' }; 
-
-      message_queue mq(create_only, "message_queue", 10, sizeof(hello));
+      message_queue mq(create_only, "message_queue", 1, sizeof(hello));
 
       std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
@@ -23,10 +22,9 @@ int main ()
       unsigned int priority;
       std::size_t recvd_size;
       
-      for (int j = 0; j < 30; ++j) {
+      for (int j = 0; j < 5; ++j) {
 	auto start = std::chrono::high_resolution_clock::now();
-	for(int i = 0; i < 10; ++i){
-	  int number;
+	for(int i = 0; i < 1; ++i){
 	  mq.send(&hello, sizeof(hello), 0);
 	  mp.receive(&hello, sizeof(hello), recvd_size, priority);
 	}

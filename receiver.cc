@@ -8,23 +8,21 @@ using namespace boost::interprocess;
 
 int main ()
 {
+  std::cout << "hello" << std::endl;
+  char hello[] = {'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '\0'};
    try{
-     char hello[] = { 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '\0' };
-     
       message_queue mq(open_only, "message_queue");
 
-      message_queue mp(create_only, "receive_queue", 10, sizeof(hello)); 
+      message_queue mp(create_only, "receive_queue", 1, sizeof(hello)); 
 
       unsigned int priority;
       message_queue::size_type recvd_size;
 
-      for (int j = 0; j < 30; ++j) {
-	for(int i = 0; i < 10; ++i) {
-	  int number;
+      std::cout << "hello" << std::endl;
+
+      for (int j = 0; j < 5; ++j) {
+	for(int i = 0; i < 1; ++i) {
 	  mq.receive(&hello, sizeof(hello), recvd_size, priority);
-	  if(number != i || recvd_size != sizeof(number))
-            return 1;
-	  int number2 = number + 1;
 	  mp.send(&hello, sizeof(hello), 0);
 	}
       }
