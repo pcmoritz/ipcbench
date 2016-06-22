@@ -12,7 +12,9 @@ int main ()
       message_queue::remove("message_queue");
       message_queue::remove("receive_queue");
 
-      message_queue mq(create_only, "message_queue", 100, sizeof(int));
+      char hello[] = { 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '\0' }; 
+
+      message_queue mq(create_only, "message_queue", 10, sizeof(hello));
 
       std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
@@ -25,8 +27,8 @@ int main ()
 	auto start = std::chrono::high_resolution_clock::now();
 	for(int i = 0; i < 10; ++i){
 	  int number;
-	  mq.send(&i, sizeof(i), 0);
-	  mp.receive(&number, sizeof(number), recvd_size, priority);
+	  mq.send(&hello, sizeof(hello), 0);
+	  mp.receive(&hello, sizeof(hello), recvd_size, priority);
 	}
 	auto finish = std::chrono::high_resolution_clock::now();
 	std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(finish-start).count() << "ns\n";
