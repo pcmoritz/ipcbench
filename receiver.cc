@@ -20,7 +20,7 @@ int main ()
 
       std::cout << "hello" << std::endl;
 
-      for (int j = 0; j < 5; ++j) {
+      for (int j = 0; j < 10; ++j) {
 	for(int i = 0; i < 1; ++i) {
 	  mq.receive(&hello, sizeof(hello), recvd_size, priority);
 	  mp.send(&hello, sizeof(hello), 0);

@@ -22,7 +22,7 @@ int main ()
       unsigned int priority;
       std::size_t recvd_size;
       
-      for (int j = 0; j < 5; ++j) {
+      for (int j = 0; j < 10; ++j) {
 	auto start = std::chrono::high_resolution_clock::now();
 	for(int i = 0; i < 1; ++i){
 	  mq.send(&hello, sizeof(hello), 0);
